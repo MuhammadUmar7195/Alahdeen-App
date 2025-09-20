@@ -168,7 +168,7 @@ const CategorySection = () => {
             </Text>
           </View>
         </View>
-        <TouchableOpacity className="bg-blue-500 px-2 py-2 rounded-full flex-row items-center justify-center">
+        <TouchableOpacity className="bg-primary px-2 py-2 rounded-full flex-row items-center justify-center">
           <ClipboardIcon size={16} color="white" />
           <Text className="text-xs font-semibold text-white text-center ml-1">
             Get Quote
