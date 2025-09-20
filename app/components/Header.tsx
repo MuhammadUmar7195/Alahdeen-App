@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Image, Switch, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Bars3Icon, FunnelIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
 
-const Header = () => {
+const Header = ({ name }) => {
   const [isSeller, setIsSeller] = useState(false);
 
   return (
@@ -14,11 +14,11 @@ const Header = () => {
       {/* Top Row: Menu + Logo + Switch */}
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center">
-          <TouchableOpacity onPress={() => {alert('Menu clicked')}}>
+          <TouchableOpacity onPress={() => { alert('Menu clicked') }}>
             <Bars3Icon size={28} color="white" />
           </TouchableOpacity>
           <Image
-            source={require('../../assets/images/logo.png')}
+            source={require('../assets/images/logo.png')}
             className="w-28 h-8 max-w-[150px] ml-3"
             resizeMode="contain"
           />
@@ -33,7 +33,7 @@ const Header = () => {
       </View>
 
       {/* Welcome Text */}
-      <Text className="text-xl font-semibold text-white mt-4">Welcome Ali</Text>
+      <Text className="text-xl font-semibold text-white mt-4">{name}</Text>
 
       {/* Search + Filter */}
       <View className="flex-row items-center mt-4">
