@@ -8,13 +8,15 @@ const Header = () => {
 
   return (
     <LinearGradient
-      colors={['#46AEB4', '#1B7AB4']} 
+      colors={['#46AEB4', '#1B7AB4']}
       className="rounded-b-3xl px-4 pt-10 pb-6"
     >
       {/* Top Row: Menu + Logo + Switch */}
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center">
-          <Bars3Icon size={28} color="white" />
+          <TouchableOpacity onPress={() => {alert('Menu clicked')}}>
+            <Bars3Icon size={28} color="white" />
+          </TouchableOpacity>
           <Image
             source={require('../../assets/images/logo.png')}
             className="w-28 h-8 max-w-[150px] ml-3"

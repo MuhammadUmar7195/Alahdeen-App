@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native'
-import React from 'react'
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ClipboardIcon } from 'react-native-heroicons/outline'; // Import ClipboardIcon
 
 export default function TrendingSection() {
     const trendingProduct = [
@@ -9,7 +9,7 @@ export default function TrendingSection() {
             price: 45.99,
             discount: "20% OFF",
             image:
-                "https://images.unsplash.com/photo-1520975922038-3c0f55d5b1f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
         },
         {
             id: 2,
@@ -17,7 +17,7 @@ export default function TrendingSection() {
             price: 29.99,
             discount: "15% OFF",
             image:
-                "https://images.unsplash.com/photo-1600180758895-6be9b30a0d3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
         },
         {
             id: 3,
@@ -33,7 +33,7 @@ export default function TrendingSection() {
             price: 15.5,
             discount: "10% OFF",
             image:
-                "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
         },
         {
             id: 5,
@@ -41,7 +41,7 @@ export default function TrendingSection() {
             price: 22.0,
             discount: "25% OFF",
             image:
-                "https://images.unsplash.com/photo-1621072154065-7d21f1a2c3a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
         },
         {
             id: 6,
@@ -49,7 +49,7 @@ export default function TrendingSection() {
             price: 34.75,
             discount: "18% OFF",
             image:
-                "https://images.unsplash.com/photo-1520962918287-7448c2878f65?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
         },
     ];
 
@@ -62,27 +62,43 @@ export default function TrendingSection() {
                 </TouchableOpacity>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                {trendingProduct.map((promoCat) => (
-                    <TouchableOpacity key={promoCat.id} className="bg-white rounded-xl shadow-sm overflow-hidden w-36 mr-3">
+                {trendingProduct.map((promoCat, index) => (
+                    <TouchableOpacity
+                        key={promoCat.id}
+                        className={`bg-white rounded-xl shadow-sm overflow-hidden w-36 ${
+                            index !== trendingProduct.length - 1 ? "mr-3" : ""
+                        }`}
+                    >
+                        {/* Product Image */}
                         <Image source={{ uri: promoCat.image }} className="w-full h-20" resizeMode="cover" />
+
+                        {/* Product Info */}
                         <View className="p-3">
-                            <Text className="text-sm font-semibold text-gray-800 mb-1 text-center">{promoCat.name}</Text>
+                            {/* Fixed height for title to ensure consistent layout */}
+                            <Text
+                                className="text-sm font-semibold text-gray-800 mb-1 text-center"
+                                numberOfLines={2} // Ensures the title doesn't overflow
+                                style={{ minHeight: 40 }} // Adjust height to accommodate longer titles
+                            >
+                                {promoCat.name}
+                            </Text>
 
                             {/* Price and Discount */}
                             <View className="flex-row items-center justify-between mb-2">
-                                <Text className="text-sm font-bold text-green-600">
+                                <Text className="text-xs font-bold text-green-600">
                                     ${promoCat.price}
                                 </Text>
-                                <View className="bg-red-500 px-2 py-1 rounded-full">
+                                <View className="bg-red-500 px-1 py-0.5 rounded-full">
                                     <Text className="text-white text-xs font-semibold">
                                         {promoCat.discount}
                                     </Text>
                                 </View>
                             </View>
 
-                            {/* Get Quote Button inside each card */}
-                            <TouchableOpacity className="bg-blue-500 py-2 px-3 rounded-lg">
-                                <Text className="text-white text-xs font-semibold text-center">
+                            {/* Get Quote Button */}
+                            <TouchableOpacity className="bg-blue-500 px-2 py-2 rounded-full flex-row items-center justify-center">
+                                <ClipboardIcon size={16} color="white" />
+                                <Text className="text-xs font-semibold text-white text-center ml-1">
                                     Get Quote
                                 </Text>
                             </TouchableOpacity>
@@ -91,5 +107,5 @@ export default function TrendingSection() {
                 ))}
             </ScrollView>
         </View>
-    )
+    );
 }

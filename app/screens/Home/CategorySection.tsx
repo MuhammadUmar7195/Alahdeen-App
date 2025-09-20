@@ -1,4 +1,5 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { ClipboardIcon } from "react-native-heroicons/outline";
 
 const CategorySection = () => {
   const categories = [
@@ -95,47 +96,109 @@ const CategorySection = () => {
     },
   ];
 
-  return (
-    <View className="py-4">
-      {/* Header with Categories title and See All button */}
-      <View className="flex-row items-center justify-between mb-4 px-4">
-        <Text className="text-xl font-bold text-gray-800">Categories</Text>
-        <TouchableOpacity>
-          <Text className="text-black font-semibold">See All</Text>
+  const renderCategory = ({ item, index }) => (
+    <TouchableOpacity
+      key={item.id}
+      className={`bg-white rounded-xl shadow-sm overflow-hidden w-32 ${
+        index !== categories.length - 1 ? "mr-3" : ""
+      }`}
+    >
+      <Image
+        source={{ uri: item.image }}
+        className="w-full h-20"
+        resizeMode="cover"
+      />
+      <View className="p-3">
+        <Text className="text-sm font-semibold text-gray-800 mb-1 text-center">
+          {item.name}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+
+  const renderGridCategory = ({ item }) => (
+    <TouchableOpacity
+      key={item.id}
+      className="bg-white rounded-2xl shadow-sm overflow-hidden flex-1 mx-1"
+    >
+      <View className="flex-row flex-wrap">
+        {item.images.map((img, i) => (
+          <Image
+            key={i}
+            source={{ uri: img }}
+            className="w-1/2 h-16 border-r border-b border-gray-100 rounded-lg mb-1"
+            resizeMode="cover"
+          />
+        ))}
+      </View>
+      <View className="flex-row justify-between items-center px-3 py-2">
+        <Text className="text-sm font-bold text-gray-800">{item.name}</Text>
+        <View className="bg-blue-100 px-2 py-1 rounded-full">
+          <Text className="text-xs font-semibold text-blue-600">
+            {item.count}
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+
+  const renderPromotionalCard = ({ item, index }) => (
+    <TouchableOpacity
+      key={item.id}
+      className={`bg-white rounded-xl shadow-sm overflow-hidden w-32 ${
+        index !== promotionalCategories.length - 1 ? "mr-3" : ""
+      }`}
+    >
+      <Image source={item.image} className="w-full h-20" resizeMode="cover" />
+      <View className="p-3">
+        <Text
+          className="text-sm font-semibold text-gray-800 mb-1 text-center"
+          numberOfLines={2}
+          style={{ minHeight: 40 }}
+        >
+          {item.name}
+        </Text>
+        <View className="flex-row items-center justify-between mb-2">
+          <Text className="text-xs font-bold text-green-600">
+            ${item.price}
+          </Text>
+          <View className="bg-red-500 px-1 py-0.5 rounded-full">
+            <Text className="text-white text-xs font-semibold">
+              {item.discount}
+            </Text>
+          </View>
+        </View>
+        <TouchableOpacity className="bg-blue-500 px-2 py-2 rounded-full flex-row items-center justify-center">
+          <ClipboardIcon size={16} color="white" />
+          <Text className="text-xs font-semibold text-white text-center ml-1">
+            Get Quote
+          </Text>
         </TouchableOpacity>
       </View>
+    </TouchableOpacity>
+  );
 
-      {/* Horizontal Scrollable Categories */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 16 }}
-        className="flex-row"
-      >
-        {categories.map((category, index) => (
-          <TouchableOpacity
-            key={category.id}
-            className={`bg-white rounded-xl shadow-sm overflow-hidden w-32 ${index !== categories.length - 1 ? "mr-3" : ""
-              }`}
-          >
-            {/* Category Image */}
-            <Image
-              source={{ uri: category.image }}
-              className="w-full h-20"
-              resizeMode="cover"
-            />
-
-            {/* Category Info */}
-            <View className="p-3">
-              <Text className="text-sm font-semibold text-gray-800 mb-1 text-center">
-                {category.name}
-              </Text>
-            </View>
+  return (
+    <View className="py-4">
+      {/* Categories Section */}
+      <View className="mb-6">
+        <View className="flex-row items-center justify-between mb-4 px-4">
+          <Text className="text-xl font-bold text-gray-800">Categories</Text>
+          <TouchableOpacity>
+            <Text className="text-black font-semibold">See All</Text>
           </TouchableOpacity>
-        ))}
-      </ScrollView>
+        </View>
+        <FlatList
+          data={categories}
+          renderItem={renderCategory}
+          keyExtractor={(item) => item.id.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 16 }}
+        />
+      </View>
 
-      {/* Categories in grid */}
+      {/* Grid Categories Section */}
       <View className="mt-6 px-4">
         <View className="flex-row items-center justify-between mb-4">
           <Text className="text-xl font-bold text-gray-800">Categories</Text>
@@ -143,89 +206,31 @@ const CategorySection = () => {
             <Text className="text-black font-semibold">See All</Text>
           </TouchableOpacity>
         </View>
-
-        {/* Categories in Grid of 4 pictures */}
-        <View className="flex-row justify-between">
-          {gridCategories.map((cat, index) => (
-            <TouchableOpacity
-              key={cat.id}
-              className="bg-white rounded-2xl shadow-sm overflow-hidden flex-1 mx-1"
-            >
-              {/* 4 images in grid */}
-              <View className="flex-row flex-wrap">
-                {cat.images.map((img, i) => (
-                  <Image
-                    key={i}
-                    source={{ uri: img }}
-                    className="w-1/2 h-16 border-r border-b border-gray-100"
-                    resizeMode="cover"
-                  />
-                ))}
-              </View>
-
-              {/* Category footer */}
-              <View className="flex-row justify-between items-center px-3 py-2">
-                <Text className="text-sm font-bold text-gray-800">
-                  {cat.name}
-                </Text>
-                <View className="bg-blue-100 px-2 py-1 rounded-full">
-                  <Text className="text-xs font-semibold text-blue-600">
-                    {cat.count}
-                  </Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
-
+        <FlatList
+          data={gridCategories}
+          renderItem={renderGridCategory}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={2}
+          scrollEnabled={false}
+        />
       </View>
 
-      {/* Promotional Categories  */}
-      <View className="mt-6 px-4">
-        <View className="flex-row items-center justify-between mb-4">
+      {/* Promotional Categories Section */}
+      <View className="mt-6">
+        <View className="flex-row items-center justify-between mb-4 px-4">
           <Text className="text-xl font-bold text-gray-800">Promotional Product</Text>
           <TouchableOpacity>
             <Text className="text-black font-semibold">See All</Text>
           </TouchableOpacity>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {promotionalCategories.map((promoCat, index) => (
-            <TouchableOpacity
-              key={promoCat.id}
-              className={`bg-white rounded-xl shadow-sm overflow-hidden w-32 ${index !== promotionalCategories.length - 1 ? "mr-3" : ""
-                }`}
-            >
-              {/* Product Image */}
-              <Image source={promoCat.image} className="w-full h-20" resizeMode="cover" />
-
-              {/* Product Info */}
-              <View className="p-3">
-                <Text className="text-sm font-semibold text-gray-800 mb-1 text-center">
-                  {promoCat.name}
-                </Text>
-
-                {/* Price and Discount */}
-                <View className="flex-row items-center justify-between mb-2">
-                  <Text className="text-xs font-bold text-green-600">
-                    ${promoCat.price}
-                  </Text>
-                  <View className="bg-red-500 px-1 py-0.5 rounded-full">
-                    <Text className="text-white text-xs font-semibold">
-                      {promoCat.discount}
-                    </Text>
-                  </View>
-                </View>
-
-                {/* Get Quote Button - matches category card style */}
-                <TouchableOpacity className="bg-blue-500 px-2 py-1 rounded-full">
-                  <Text className="text-xs font-semibold text-white text-center">
-                    📋 Get Quote
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <FlatList
+          data={promotionalCategories}
+          renderItem={renderPromotionalCard}
+          keyExtractor={(item) => item.id.toString()}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingHorizontal: 16 }}
+        />
       </View>
     </View>
   );

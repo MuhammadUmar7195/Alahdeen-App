@@ -49,11 +49,10 @@ const Banner = () => {
         {bannerImages.map((_, index) => (
           <View
             key={index}
-            className={`w-2 h-2 rounded-full mx-1 ${
-              index === currentIndex
-                ? 'bg-white'
-                : 'bg-white/50'
-            }`}
+            className={`mx-1 ${index === currentIndex
+                ? 'bg-primary w-4 h-2 rounded-full' // Active dot: larger and elongated
+                : 'bg-primary/50 w-2 h-2 rounded-full' // Inactive dots: smaller and circular
+              }`}
           />
         ))}
       </View>

@@ -35,7 +35,7 @@ const BottomNavigation = () => {
     };
 
     return (
-        <View className="absolute bottom-6 w-full items-center px-4">
+        <View className="sticky bottom-6 w-full items-center px-4">
             {/* Glass Effect Background */}
             <View className="absolute w-full h-20 bg-black/5 rounded-3xl" style={{ 
                 shadowColor: "#000",
@@ -49,7 +49,7 @@ const BottomNavigation = () => {
             <View className="absolute -top-10 z-10">
                 <TouchableOpacity className="w-20 h-20 rounded-full items-center justify-center">
                     <LinearGradient
-                        colors={["#4F46E5", "#06B6D4"]}
+                        colors={["bg-primary", "bg-secondary"]}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 1 }}
                         className="w-20 h-20 rounded-full items-center justify-center"
