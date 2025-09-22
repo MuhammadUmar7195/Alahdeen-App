@@ -5,6 +5,7 @@ import ProductCategories from "./screens/Product/ProductCategories/index";
 import "./global.css";
 import SubCategory from "./screens/Product/SingleCategory/index";
 import Product from "./screens/Product/index";
+import SingleProduct from "./screens/Product/SingleProduct/SingleProduct";
 
 export default function Index() {
   return (
@@ -12,7 +13,8 @@ export default function Index() {
       {/* <HomeIndex /> */}
       {/* <ProductCategories /> */}
       {/* <SubCategory/> */}
-      <Product/>
+      {/* <Product/> */}
+      <SingleProduct />
     </SafeAreaProvider>
   );
 }

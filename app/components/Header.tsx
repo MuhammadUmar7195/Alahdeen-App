@@ -9,7 +9,11 @@ const Header = ({ name }) => {
   return (
     <LinearGradient
       colors={['#46AEB4', '#1B7AB4']}
-      className="rounded-b-3xl px-4 pt-10 pb-6"
+      className="px-4 pt-10 pb-6"
+      style={{
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+      }}
     >
       {/* Top Row: Menu + Logo + Switch */}
       <View className="flex-row items-center justify-between">
