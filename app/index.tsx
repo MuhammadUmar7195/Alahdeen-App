@@ -10,11 +10,11 @@ import SingleProduct from "./screens/Product/SingleProduct/SingleProduct";
 export default function Index() {
   return (
     <SafeAreaProvider>
-      {/* <HomeIndex /> */}
+      <HomeIndex />
       {/* <ProductCategories /> */}
       {/* <SubCategory/> */}
       {/* <Product/> */}
-      <SingleProduct />
+      {/* <SingleProduct /> */}
     </SafeAreaProvider>
   );
 }

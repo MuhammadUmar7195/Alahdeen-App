@@ -2,9 +2,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from "react";
 import { Image, Switch, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Bars3Icon, FunnelIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
+import { useNavigation, DrawerActions } from "@react-navigation/native";
 
-const Header = ({ name }) => {
+const Header = ({ name }: { name: string }) => {
   const [isSeller, setIsSeller] = useState(false);
+  const navigation = useNavigation();
 
   return (
     <LinearGradient
@@ -18,7 +20,7 @@ const Header = ({ name }) => {
       {/* Top Row: Menu + Logo + Switch */}
       <View className="flex-row items-center justify-between">
         <View className="flex-row items-center">
-          <TouchableOpacity onPress={() => { alert('Menu clicked') }}>
+          <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
             <Bars3Icon size={28} color="white" />
           </TouchableOpacity>
           <Image
